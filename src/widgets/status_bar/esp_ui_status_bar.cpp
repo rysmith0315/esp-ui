@@ -647,6 +647,10 @@ bool ESP_UI_StatusBar::setClock(int hour, int minute, bool is_pm) const
     hour = max(min(hour, 23), 0);
     minute = max(min(minute, 59), 0);
 
+    if(_ui_clock_mode == UI_CLOCK_12HR) {
+        hour = (hour > 12 ? hour - 12 : hour);
+    }
+
     if (_clock_hour != hour) {
         _clock_hour = hour;
         lv_label_set_text_fmt(_clock_hour_label.get(), "%02d", hour);
@@ -685,4 +689,7 @@ void ESP_UI_StatusBar::onDataUpdateEventCallback(lv_event_t *event)
     if (status_bar->checkClockInitialized() && !status_bar->updateClockByNewData()) {
         ESP_UI_LOGE("Update clock object style failed");
     }
+}
+static bool setUIClockMode(ui_clock_mode_t mode) {
+    _ui_clock_mode = mode;
 }

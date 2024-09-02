@@ -45,6 +45,12 @@ public:
     static bool calibrateData(const ESP_UI_StyleSize_t &screen_size, const ESP_UI_CoreHome &home,
                               ESP_UI_StatusBarData_t &data);
 
+    static bool setUIClockMode(ui_clock_mode_t mode);
+    enum ui_clock_mode_t {
+        UI_CLOCK_24HR = 0,
+        UI_CLOCK_12HR
+    };
+
 private:
     bool beginMain(lv_obj_t *parent);
     bool updateMainByNewData(void);
@@ -82,6 +88,7 @@ private:
     // Wifi
     int _wifi_id;
     // Clock
+    static esp_clock_mode_t _ui_clock_mode = UI_CLOCK_24HR;
     mutable int _clock_hour;
     mutable int _clock_min;
     bool _is_clock_out_of_area;
