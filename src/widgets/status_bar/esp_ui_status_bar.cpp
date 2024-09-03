@@ -690,6 +690,9 @@ void ESP_UI_StatusBar::onDataUpdateEventCallback(lv_event_t *event)
         ESP_UI_LOGE("Update clock object style failed");
     }
 }
-static bool setUIClockMode(ui_clock_mode_t mode) {
+
+bool ESP_UI_StatusBar::setUIClockMode(ui_clock_mode_t mode) {
+    // ESP_UI_LOGI("Setting UI Clock Mode");
     _ui_clock_mode = mode;
+    return true;
 }

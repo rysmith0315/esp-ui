@@ -17,6 +17,11 @@
 // *INDENT-OFF*
 class ESP_UI_StatusBar {
 public:
+    typedef enum  {
+        UI_CLOCK_24HR = 0,
+        UI_CLOCK_12HR
+    } ui_clock_mode_t;
+    
     ESP_UI_StatusBar(const ESP_UI_Core &core, const ESP_UI_StatusBarData_t &data, int battery_id, int wifi_id);
     ~ESP_UI_StatusBar();
 
@@ -45,11 +50,7 @@ public:
     static bool calibrateData(const ESP_UI_StyleSize_t &screen_size, const ESP_UI_CoreHome &home,
                               ESP_UI_StatusBarData_t &data);
 
-    static bool setUIClockMode(ui_clock_mode_t mode);
-    enum ui_clock_mode_t {
-        UI_CLOCK_24HR = 0,
-        UI_CLOCK_12HR
-    };
+    bool setUIClockMode(ui_clock_mode_t mode);
 
 private:
     bool beginMain(lv_obj_t *parent);
@@ -88,7 +89,7 @@ private:
     // Wifi
     int _wifi_id;
     // Clock
-    static esp_clock_mode_t _ui_clock_mode = UI_CLOCK_24HR;
+    ui_clock_mode_t _ui_clock_mode;
     mutable int _clock_hour;
     mutable int _clock_min;
     bool _is_clock_out_of_area;
